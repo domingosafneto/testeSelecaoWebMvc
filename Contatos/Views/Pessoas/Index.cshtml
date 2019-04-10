@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Contatos.Models.Pessoa>
+
+@{
+    ViewBag.Title = "Pessoas";
+}
+
+<h2>Agenda de contatos</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo", "Create")
+</p>
+
+@using(Html.BeginForm("Buscar", "Pessoas", FormMethod.Post))
+{
+    <input type="text" id="txtBusca" name="txtBusca" />
+    <input id="btn" class="btn btn-primary" name="btn" type="submit" value="Buscar">
+}
+</p>
+           
+
+<br>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Marcador)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Marcador)*@
+            </td>
+
+            <!-- Contatos-->
+            <td>
+                <table>
+                    <tr>
+                        <td><p><b>Contatos:</b></p></td>
+                        <td><p>&nbsp&nbsp&nbsp @Html.ActionLink("Adicionar", "Create", "Contatos", new { idPessoa = item.Id }, null)</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @foreach (var contato in item.Contatos)
+                            {
+                        <tr>
+                            <td><p>@contato.Tipo: @contato.Valor</p></td>
+                            <td><p>&nbsp&nbsp&nbsp @Html.ActionLink("Editar", "Edit", "Contatos", new { id = contato.Id }, null)</p></td>
+                            <td><p>&nbsp&nbsp&nbsp @Html.ActionLink("Excluir", "Delete", "Contatos", new { id = contato.Id }, null)</p></td>
+                        </tr>
+                    }
+
+
+                    </td>
+                </tr>
+            </table>
+            </td>
+
+            <!-- Endereços-->
+            <td>
+                <table>
+                    <tr>
+                        <td><p><b>Endereço:</b></p></td>
+                        <td><p>&nbsp&nbsp&nbsp @Html.ActionLink("Adicionar", "Create", "Enderecos", new { idPessoa = item.Id }, null)</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @foreach (var endereco in item.Enderecos)
+                            {
+                        <tr>
+                            <td><p>Rua: @endereco.Logradouro &nbsp @endereco.Numero</p></td>
+                            <td><p>&nbsp&nbsp&nbsp @Html.ActionLink("Editar", "Edit", "Enderecos", new { id = endereco.Id }, null)</p></td>
+                            <td><p>&nbsp&nbsp&nbsp @Html.ActionLink("Excluir", "Delete", "Enderecos", new { id = endereco.Id }, null)</p></td>
+                        </tr>
+                    }
+
+                    </td>
+                   </tr>
+                 </table>
+            </td>
+
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                    </td>
+
+                    </tr>
+                }
+    </table>

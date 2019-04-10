@@ -1,0 +1,46 @@
+﻿@model Contatos.Models.Contato
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Excluir Contato</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Remover" class="btn btn-default" onclick="return confirm('Tem certeza que deseja remover esta informação?');"/> |
+        @Html.ActionLink("Voltar", "Index", "Pessoas")
+    </div>
+    }
+</div>
